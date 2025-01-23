@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "devsecops-bucket11"
+    bucket         = "devsecops-bucket111"
     region         = "eu-west-1"
     key            = "End-to-End-Kubernetes-DevSecOps-Tetris-Project/Jenkins-Server-TF/terraform.tfstate"
     dynamodb_table = "Lock-Files"
