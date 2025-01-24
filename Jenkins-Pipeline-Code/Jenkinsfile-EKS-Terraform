@@ -48,23 +48,35 @@ pipeline {
         }
         stage('Terraform Action') {
             steps {
-                withAWS(credentials: 'aws-key', region: 'eu-west-1') { 
-                script {
-                    echo "${params.'Terraform-Action'}"
+                withAWS(credentials: 'aws-key', region: 'eu-west-1') {
                     dir('EKS-TF') {
                         script {
-                            if (params.'Terraform-Action' == 'apply') {
-                                sh "terraform apply -auto-approve -var-file=${params.'File-Name'}"
-                            } else if (params.'Terraform-Action' == 'destroy') {
-                                sh "terraform destroy -auto-approve -var-file=${params.'File-Name'}"
-                            } else {
-                                error "Invalid value for Terraform-Action: ${params.'Terraform-Action'}"
-                            }
+                            sh "terraform apply -auto-approve -var-file=variables.tfvars"
                         }
                     }
                 }
-                }
             }
         }
+
+        // stage('Terraform Action') {
+        //     steps {
+        //         withAWS(credentials: 'aws-key', region: 'eu-west-1') { 
+        //         script {
+        //             echo "${params.'Terraform-Action'}"
+        //             dwir('EKS-TF') {
+        //                 script {
+        //                     if (params.'Terraform-Action' == 'apply') {
+        //                         sh "terraform apply -auto-approve -var-file=${params.'File-Name'}"
+        //                     } else if (params.'Terraform-Action' == 'destroy') {
+        //                         sh "terraform destroy -auto-approve -var-file=${params.'File-Name'}"
+        //                     } else {
+        //                         error "Invalid value for Terraform-Action: ${params.'Terraform-Action'}"
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //         }
+        //     }
+        // }
     }
 }
